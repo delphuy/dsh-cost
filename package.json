@@ -19,7 +19,8 @@
   "files": [
     "lib/**/*.js",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "README.en.md"
   ],
   "repository": {
     "type": "git",
