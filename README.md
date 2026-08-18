@@ -11,6 +11,10 @@ DSH（DeepSeek Harness）费用显示插件：在 Web 界面左侧边栏底部�
 - **自动刷新**：余额每 5 分钟轮询（可配置），token 用量实时跟踪
 - **容错**：余额接口异常时显示 `--` 与错误状态，不影响内核启动
 
+![](https://gitee.com/delphuy/image/raw/main/2026/08/18/1787053717320-a838a268-739d-4304-bc4c-b3831aae0873.png)
+
+![](https://gitee.com/delphuy/image/raw/main/2026/08/18/1787053689546-c7ef8d3c-58e2-4f33-9cde-cfcbbe731d9b.png)
+
 ## 数据来源
 
 | 指标 | 来源 |
@@ -20,41 +24,10 @@ DSH（DeepSeek Harness）费用显示插件：在 Web 界面左侧边栏底部�
 | 总用量 | `session_projcache.json` 会话 tokenUsage 投影（lifetime）+ 在线会话实时覆盖 |
 | 会话数 | 历史 + 在线会话去重计数 |
 
-## 安装（Agent 方式）
+## 安装
 
-把本仓库交给 DSH agent，让它执行：
-
-1. 将 `dsh-cost` 目录放入 `~/.dsh/profiles/web/node_modules/dsh-cost/`
-2. 编辑 `~/.dsh/profiles/web/package.json`：`dependencies` 增加 `"dsh-cost": "0.1.0"`，`dsh.profile.bundles` 加入 `"dsh-cost"`
-3. 若装有旧版余额插件，从上述两处移除，避免出现重复标签
-4. 重启 DSH 内核
-
-## 配置
-
-命名空间 `cost-badge`：
-
-| 配置项 | 默认值 | 说明 |
-| --- | --- | --- |
-| `enabled` | `true` | 启用余额轮询 |
-| `apiKeyRef` | `DEEPSEEK_API_KEY` | 凭证服务 API Key 引用 |
-| `pollMinutes` | `5` | 轮询间隔（分钟） |
-
-## API
-
-`GET /api/cost/state` 返回余额、今日消耗与用量统计（JSON）。
-
-## 文件结构
+将如下的内容，复制给 dsh 即可：
 
 ```
-dsh-cost/
-├── package.json       # 插件声明（dsh.bundle.patch / dsh.client.inject / exports）
-├── cordis.patch.yml   # Cordis 插件注册行
-├── lib/
-│   ├── index.js       # Host：路由、余额轮询、用量聚合
-│   └── client.js      # Browser：React 余额标签 + hover 浮窗
-└── README.md
+帮我从 https://github.com/delphuy/dsh-cost.git 下载 dsh-cost 插件并安装
 ```
-
-## 依赖
-
-运行时：`schemastery`；peer（由内核提供）：`@deepseek-ai/cordis`、dsh-settings、dsh-host-webserver、dsh-credentials、dsh-session、dsh-session-projection、react。

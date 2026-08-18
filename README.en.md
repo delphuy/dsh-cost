@@ -11,6 +11,10 @@ A cost badge plugin for the DSH (DeepSeek Harness) web GUI: a persistent DeepSee
 - **Auto refresh**: balance polled every 5 minutes (configurable); token usage tracked live
 - **Fail-soft**: shows `--` and an error state when the balance API fails; never breaks kernel boot
 
+![](https://gitee.com/delphuy/image/raw/main/2026/08/18/1787053717320-a838a268-739d-4304-bc4c-b3831aae0873.png)
+
+![](https://gitee.com/delphuy/image/raw/main/2026/08/18/1787053782310-1f5f792c-3486-4e93-b15d-a526a2508884.png)
+
 ## Data sources
 
 | Metric | Source |
@@ -20,41 +24,10 @@ A cost badge plugin for the DSH (DeepSeek Harness) web GUI: a persistent DeepSee
 | Total tokens | `session_projcache.json` session tokenUsage projections (lifetime) + live overrides for open sessions |
 | Sessions | historical + live, deduplicated |
 
-## Install (agent)
+## Install
 
-Hand this repo to a DSH agent and ask it to:
-
-1. Copy the `dsh-cost` package into `~/.dsh/profiles/web/node_modules/dsh-cost/`
-2. Edit `~/.dsh/profiles/web/package.json`: add `"dsh-cost": "0.1.0"` to `dependencies` and `"dsh-cost"` to `dsh.profile.bundles`
-3. Remove any older balance-badge plugin from both lists to avoid duplicate labels
-4. Restart the DSH kernel
-
-## Configuration
-
-Namespace `cost-badge`:
-
-| Option | Default | Description |
-| --- | --- | --- |
-| `enabled` | `true` | enable balance polling |
-| `apiKeyRef` | `DEEPSEEK_API_KEY` | credentials-service API key reference |
-| `pollMinutes` | `5` | poll interval (minutes) |
-
-## API
-
-`GET /api/cost/state` returns balance, today's spend and token totals (JSON).
-
-## Layout
+Copy the following to your DSH agent:
 
 ```
-dsh-cost/
-├── package.json       # plugin declaration (dsh.bundle.patch / dsh.client.inject / exports)
-├── cordis.patch.yml   # Cordis plugin registration
-├── lib/
-│   ├── index.js       # Host: route, balance polling, usage aggregation
-│   └── client.js      # Browser: React badge + hover popover
-└── README.md
+帮我从 https://github.com/delphuy/dsh-cost.git 下载 dsh-cost 插件并安装
 ```
-
-## Dependencies
-
-Runtime: `schemastery`. Peer (provided by the kernel): `@deepseek-ai/cordis`, dsh-settings, dsh-host-webserver, dsh-credentials, dsh-session, dsh-session-projection, react.
