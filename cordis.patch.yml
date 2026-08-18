@@ -1,0 +1,7 @@
+# dsh-cost-badge bundle patch: inserts its plugin row into the web profile
+# roster. The single row mounts BOTH halves: the host side (balance polling,
+# usage aggregation, /api/cost/state route) and the browser side (the sidebar
+# footer badge + hover popover, via the dsh.client declaration in package.json).
+- insert:
+    - id: cost-badge
+      name: 'dsh-cost'
